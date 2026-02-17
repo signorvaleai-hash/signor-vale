@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#000000" />
+  <title>Signor Vale</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script defer src="/main.js"></script>
+</head>
+<body>
+  <div class="nav-container" id="navbar">
+    <nav class="nav-glass">
+      <div class="nav-logo">Signor Vale</div>
+      <div class="nav-links">
+        <a href="#work" class="nav-link">Work</a>
+        <a href="#philosophy" class="nav-link">Philosophy</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+    </nav>
+  </div>
+
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Independent Builder</p>
+      <h1 class="hero-headline">
+        <span>I find ugly,</span>
+        <span>complex things.</span>
+      </h1>
+      <p class="hero-subhead">And rebuild them to be elegant, useful, and inevitable. Great design is not a luxury, it is the elimination of the unnecessary.</p>
+      <div class="hero-buttons">
+        <a href="#work" class="ios-button ios-button-primary">View Work</a>
+        <a href="#contact" class="ios-button ios-button-secondary">Get in Touch</a>
+      </div>
+    </div>
+    <div class="home-indicator"></div>
+  </section>
+
+  <section class="work" id="work">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Selected Work</div>
+        <h2 class="section-title">Objects that disappear into use.</h2>
+      </div>
+
+      <div class="widget-grid" id="projectsGrid" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <section class="philosophy" id="philosophy">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-eyebrow">Principles</div>
+        <h2 class="section-title">Design is an expression of values.</h2>
+      </div>
+
+      <div class="settings-group">
+        <div class="settings-row">
+          <span class="settings-label">Simplicity</span>
+          <span class="settings-value">Remove until nothing remains</span>
+        </div>
+        <div class="settings-row">
+          <span class="settings-label">Honesty</span>
+          <span class="settings-value">No dark patterns, no tricks</span>
+        </div>
+        <div class="settings-row">
+          <span class="settings-label">Longevity</span>
+          <span class="settings-value">Built to last, not to trend</span>
+        </div>
+        <div class="settings-row">
+          <span class="settings-label">Care</span>
+          <span class="settings-value">Thorough down to the last pixel</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="contact-bg"></div>
+    <div class="contact-content">
+      <h2 class="contact-title">Let's build something better.</h2>
+      <p class="contact-subtitle">If you have a complex problem that needs simplifying, I'd love to hear from you.</p>
+      <a href="mailto:hello@you.dev" class="contact-button">
+        <span>hello@you.dev</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </section>
+</body>
+</html>

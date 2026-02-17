@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Signor Vale Admin</title>
+  <link rel="stylesheet" href="/admin.css" />
+  <script defer src="/admin.js"></script>
+</head>
+<body>
+  <main class="page">
+    <section class="card" id="loginCard">
+      <h1>Admin Login</h1>
+      <p class="muted">Manage projects shown on the homepage.</p>
+      <form id="loginForm" class="stack">
+        <label>
+          Username
+          <input id="loginUsername" name="username" required />
+        </label>
+        <label>
+          Password
+          <input id="loginPassword" name="password" type="password" required />
+        </label>
+        <button type="submit">Sign In</button>
+      </form>
+      <p id="loginError" class="error"></p>
+    </section>
+
+    <section class="card hidden" id="adminCard">
+      <header class="toolbar">
+        <h1>Projects</h1>
+        <button id="logoutButton" class="secondary">Logout</button>
+      </header>
+
+      <form id="projectForm" class="grid">
+        <input type="hidden" id="projectId" />
+
+        <label>
+          Title
+          <input id="title" required maxlength="80" />
+        </label>
+
+        <label>
+          Category
+          <input id="category" required maxlength="30" />
+        </label>
+
+        <label>
+          Year
+          <input id="year" required type="number" min="1900" max="2100" />
+        </label>
+
+        <label>
+          Icon (1-2 chars)
+          <input id="icon" required maxlength="2" />
+        </label>
+
+        <label>
+          Icon Theme
+          <select id="iconTheme">
+            <option value="invoice">Green</option>
+            <option value="calendar">Orange</option>
+            <option value="notes">Purple</option>
+          </select>
+        </label>
+
+        <label>
+          Order
+          <input id="displayOrder" type="number" min="0" max="9999" required />
+        </label>
+
+        <label class="full">
+          Description
+          <textarea id="description" required maxlength="300" rows="3"></textarea>
+        </label>
+
+        <label class="inline">
+          <input id="featured" type="checkbox" />
+          Featured (full width card)
+        </label>
+
+        <div class="actions full">
+          <button type="submit" id="saveButton">Save Project</button>
+          <button type="button" class="secondary" id="resetButton">Reset</button>
+        </div>
+      </form>
+
+      <p id="adminError" class="error"></p>
+
+      <div class="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Year</th>
+              <th>Order</th>
+              <th>Featured</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="projectsTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

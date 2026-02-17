@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#000000">
+    <title>You</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <style>
+        :root {
+            --ios-gray-6: #f2f2f7;
+            --ios-gray-5: #e5e5ea;
+            --ios-gray-4: #d1d1d6;
+            --ios-gray-3: #c7c7cc;
+            --ios-gray-2: #aeaeb2;
+            --ios-gray: #8e8e93;
+            --ios-blue: #007aff;
+            --ios-blue-hover: #0051d5;
+            --glass-bg: rgba(255, 255, 255, 0.72);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --ease-ios: cubic-bezier(0.32, 0.72, 0, 1);
+            --ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", sans-serif;
+            background: #000;
+            color: #fff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* iOS-style Glass Navigation */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 20px;
+            transition: all 0.5s var(--ease-ios);
+        }
+
+        .nav-container.scrolled {
+            padding: 12px 20px;
+        }
+
+        .nav-glass {
+            max-width: 680px;
+            margin: 0 auto;
+            background: rgba(28, 28, 30, 0.6);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 100px;
+            padding: 12px 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.5s var(--ease-ios);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .nav-container.scrolled .nav-glass {
+            background: rgba(28, 28, 30, 0.85);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        .nav-logo {
+            font-size: 21px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fff 0%, #a1a1a6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .nav-link {
+            font-size: 15px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            color: #fff;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            background: var(--ios-blue);
+            border-radius: 50%;
+            transform: translateX(-50%) scale(0);
+            transition: transform 0.3s var(--ease-spring);
+        }
+
+        .nav-link:hover::after {
+            transform: translateX(-50%) scale(1);
+        }
+
+        /* Hero - iPhone Lock Screen Depth */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            padding: 120px 40px;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255, 119, 198, 0.2) 0%, transparent 50%),
+                radial-gradient(circle at 40% 20%, rgba(120, 219, 255, 0.2) 0%, transparent 50%);
+            filter: blur(60px);
+            animation: ambientShift 20s ease-in-out infinite;
+        }
+
+        @keyframes ambientShift {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.8; }
+            33% { transform: scale(1.1) rotate(5deg); opacity: 1; }
+            66% { transform: scale(0.95) rotate(-5deg); opacity: 0.9; }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .hero-eyebrow {
+            font-size: 17px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 24px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .hero-headline {
+            font-size: clamp(40px, 8vw, 80px);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -0.03em;
+            margin-bottom: 32px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .hero-headline span {
+            display: block;
+            background: linear-gradient(180deg, #fff 0%, rgba(255,255,255,0.7) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subhead {
+            font-size: 21px;
+            line-height: 1.4;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 600px;
+            margin: 0 auto 48px;
+            font-weight: 400;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        /* iOS-style Buttons */
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .ios-button {
+            font-size: 17px;
+            font-weight: 500;
+            padding: 16px 32px;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.3s var(--ease-ios);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ios-button-primary {
+            background: var(--ios-blue);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(0, 122, 255, 0.3);
+        }
+
+        .ios-button-primary:hover {
+            background: var(--ios-blue-hover);
+            transform: scale(1.02);
+            box-shadow: 0 6px 24px rgba(0, 122, 255, 0.4);
+        }
+
+        .ios-button-primary:active {
+            transform: scale(0.98);
+        }
+
+        .ios-button-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .ios-button-secondary:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        /* iOS Home Indicator */
+        .home-indicator {
+            position: absolute;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 134px;
+            height: 5px;
+            background: #fff;
+            border-radius: 100px;
+            opacity: 0;
+        }
+
+        /* Work Section - iOS Widget Style */
+        .work {
+            padding: 120px 40px;
+            background: #000;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 48px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .section-eyebrow {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--ios-blue);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            margin-bottom: 8px;
+        }
+
+        .section-title {
+            font-size: 48px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        /* iOS Widget Grid */
+        .widget-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        .widget {
+            background: rgba(28, 28, 30, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 28px;
+            padding: 32px;
+            transition: all 0.5s var(--ease-ios);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(40px) scale(0.95);
+        }
+
+        .widget::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .widget:hover {
+            transform: translateY(-4px) scale(1);
+            background: rgba(28, 28, 30, 0.8);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        }
+
+        .widget:hover::before {
+            opacity: 1;
+        }
+
+        .widget-large {
+            grid-column: 1 / -1;
+        }
+
+        .widget-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 16px;
+        }
+
+        .widget-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 16px;
+        }
+
+        .widget-icon.invoice { background: linear-gradient(135deg, #34c759 0%, #30d158 100%); }
+        .widget-icon.calendar { background: linear-gradient(135deg, #ff9500 0%, #ff9f0a 100%); }
+        .widget-icon.notes { background: linear-gradient(135deg, #5856d6 0%, #5e5ce6 100%); }
+
+        .widget-title {
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
+        }
+
+        .widget-description {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.4;
+            max-width: 480px;
+        }
+
+        .widget-meta {
+            display: flex;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .widget-badge {
+            font-size: 13px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 6px 12px;
+            border-radius: 100px;
+        }
+
+        /* Philosophy - iOS Settings Style */
+        .philosophy {
+            padding: 120px 40px;
+            background: #000;
+        }
+
+        .settings-group {
+            background: rgba(28, 28, 30, 0.6);
+            backdrop-filter: blur(20px);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .settings-row {
+            padding: 20px 24px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.2s;
+        }
+
+        .settings-row:last-child {
+            border-bottom: none;
+        }
+
+        .settings-row:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .settings-label {
+            font-size: 17px;
+            color: #fff;
+        }
+
+        .settings-value {
+            font-size: 17px;
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .settings-chevron {
+            width: 20px;
+            height: 20px;
+            color: rgba(255, 255, 255, 0.3);
+            margin-left: 8px;
+        }
+
+        /* Contact - iOS Action Sheet */
+        .contact {
+            padding: 160px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        .contact-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 122, 255, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .contact-content {
+            position: relative;
+            z-index: 2;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .contact-title {
+            font-size: 40px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .contact-subtitle {
+            font-size: 21px;
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .contact-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 17px;
+            font-weight: 500;
+            padding: 16px 32px;
+            border-radius: 100px;
+            text-decoration: none;
+            transition: all 0.3s var(--ease-ios);
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .contact-button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.02);
+        }
+
+        /* iOS Spring Animation on Load */
+        @keyframes springIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding: 100px 24px; }
+            .work, .philosophy { padding: 80px 24px; }
+            .widget { padding: 24px; }
+            .section-title { font-size: 32px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- iOS Glass Navigation -->
+    <div class="nav-container" id="navbar">
+        <nav class="nav-glass">
+            <div class="nav-logo">You</div>
+            <div class="nav-links">
+                <a href="#work" class="nav-link">Work</a>
+                <a href="#philosophy" class="nav-link">Philosophy</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+        </nav>
+    </div>
+
+    <!-- Hero - iOS Lock Screen Aesthetic -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">Independent Builder</p>
+            <h1 class="hero-headline">
+                <span>I find ugly,</span>
+                <span>complex things.</span>
+            </h1>
+            <p class="hero-subhead">And rebuild them to be elegant, useful, and inevitable. Great design is not a luxury—it is the elimination of the unnecessary.</p>
+            <div class="hero-buttons">
+                <a href="#work" class="ios-button ios-button-primary">View Work</a>
+                <a href="#contact" class="ios-button ios-button-secondary">Get in Touch</a>
+            </div>
+        </div>
+        <div class="home-indicator"></div>
+    </section>
+
+    <!-- Work - iOS Widgets -->
+    <section class="work" id="work">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Selected Work</div>
+                <h2 class="section-title">Objects that disappear into use.</h2>
+            </div>
+            
+            <div class="widget-grid">
+                <article class="widget widget-large">
+                    <div class="widget-icon invoice">$</div>
+                    <div class="widget-title">SimpleInvoice</div>
+                    <div class="widget-description">Billing software that does not require an accounting degree. Removed everything except the act of getting paid.</div>
+                    <div class="widget-meta">
+                        <span class="widget-badge">Web App</span>
+                        <span class="widget-badge">2024</span>
+                    </div>
+                </article>
+
+                <article class="widget">
+                    <div class="widget-icon calendar">◷</div>
+                    <div class="widget-title">CalmCal</div>
+                    <div class="widget-description">Scheduling without notification anxiety. Time management that respects attention.</div>
+                    <div class="widget-meta">
+                        <span class="widget-badge">iOS</span>
+                        <span class="widget-badge">2024</span>
+                    </div>
+                </article>
+
+                <article class="widget">
+                    <div class="widget-icon notes">✎</div>
+                    <div class="widget-title">PlainNotes</div>
+                    <div class="widget-description">Note-taking with no AI, no collaboration, no syntax. Just text.</div>
+                    <div class="widget-meta">
+                        <span class="widget-badge">macOS</span>
+                        <span class="widget-badge">2023</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Philosophy - iOS Settings -->
+    <section class="philosophy" id="philosophy">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-eyebrow">Principles</div>
+                <h2 class="section-title">Design is an expression of values.</h2>
+            </div>
+            
+            <div class="settings-group">
+                <div class="settings-row">
+                    <span class="settings-label">Simplicity</span>
+                    <span class="settings-value">Remove until nothing remains</span>
+                </div>
+                <div class="settings-row">
+                    <span class="settings-label">Honesty</span>
+                    <span class="settings-value">No dark patterns, no tricks</span>
+                </div>
+                <div class="settings-row">
+                    <span class="settings-label">Longevity</span>
+                    <span class="settings-value">Built to last, not to trend</span>
+                </div>
+                <div class="settings-row">
+                    <span class="settings-label">Care</span>
+                    <span class="settings-value">Thorough down to the last pixel</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact - iOS Action Sheet -->
+    <section class="contact" id="contact">
+        <div class="contact-bg"></div>
+        <div class="contact-content">
+            <h2 class="contact-title">Let's build something better.</h2>
+            <p class="contact-subtitle">If you have a complex problem that needs simplifying, I'd love to hear from you.</p>
+            <a href="mailto:hello@you.dev" class="contact-button">
+                <span>hello@you.dev</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Navigation scroll effect
+        ScrollTrigger.create({
+            start: 50,
+            onUpdate: (self) => {
+                const nav = document.getElementById('navbar');
+                if (self.scroll() > 50) {
+                    nav.classList.add('scrolled');
+                } else {
+                    nav.classList.remove('scrolled');
+                }
+            }
+        });
+
+        // Hero animations - iOS spring physics
+        const heroTl = gsap.timeline({ defaults: { ease: "power3.out" } });
+        
+        heroTl
+            .to(".hero-eyebrow", { opacity: 1, y: 0, duration: 0.8, delay: 0.2 })
+            .to(".hero-headline", { opacity: 1, y: 0, duration: 1, ease: "back.out(1.2)" }, "-=0.4")
+            .to(".hero-subhead", { opacity: 1, y: 0, duration: 0.8 }, "-=0.6")
+            .to(".hero-buttons", { opacity: 1, y: 0, duration: 0.8 }, "-=0.4")
+            .to(".home-indicator", { opacity: 0.3, duration: 0.5 }, "-=0.2");
+
+        // Widget animations - staggered iOS home screen feel
+        gsap.to(".section-header", {
+            scrollTrigger: { trigger: ".work", start: "top 80%" },
+            opacity: 1, y: 0, duration: 0.8
+        });
+
+        gsap.utils.toArray(".widget").forEach((widget, i) => {
+            gsap.to(widget, {
+                scrollTrigger: { trigger: widget, start: "top 85%" },
+                opacity: 1, y: 0, scale: 1,
+                duration: 0.8,
+                delay: i * 0.1,
+                ease: "back.out(1.2)"
+            });
+        });
+
+        // Settings animation
+        gsap.to(".settings-group", {
+            scrollTrigger: { trigger: ".philosophy", start: "top 70%" },
+            opacity: 1, y: 0, duration: 0.8
+        });
+
+        // Contact animation
+        gsap.to(".contact-title", {
+            scrollTrigger: { trigger: ".contact", start: "top 70%" },
+            opacity: 1, y: 0, duration: 0.8
+        });
+        gsap.to(".contact-subtitle", {
+            scrollTrigger: { trigger: ".contact", start: "top 70%" },
+            opacity: 1, y: 0, duration: 0.8, delay: 0.1
+        });
+        gsap.to(".contact-button", {
+            scrollTrigger: { trigger: ".contact", start: "top 70%" },
+            opacity: 1, y: 0, duration: 0.8, delay: 0.2
+        });
+
+        // Widget hover - iOS haptic-like scale
+        document.querySelectorAll('.widget').forEach(widget => {
+            widget.addEventListener('mouseenter', () => {
+                gsap.to(widget, { scale: 1.02, duration: 0.3, ease: "power2.out" });
+            });
+            widget.addEventListener('mouseleave', () => {
+                gsap.to(widget, { scale: 1, duration: 0.3, ease: "power2.out" });
+            });
+        });
+    </script>
+
+</body>
+</html>
