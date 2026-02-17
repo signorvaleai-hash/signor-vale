@@ -317,9 +317,14 @@
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
 
-        .widget:hover::before {
-            opacity: 1;
-        }
+.widget:hover::before {
+    opacity: 1;
+}
+
+.widget:focus-visible {
+    outline: 2px solid rgba(0, 122, 255, 0.9);
+    outline-offset: 3px;
+}
 
         .widget-large {
             grid-column: 1 / -1;

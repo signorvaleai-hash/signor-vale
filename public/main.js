@@ -30,7 +30,7 @@ function renderProjectCards(projects) {
       }
 
       return `
-        <article class="${widgetClass}">
+        <article class="${widgetClass}" data-project-url="${detailHref}" tabindex="0" role="link" aria-label="Open ${escapeAttribute(project.title)}">
           <div class="widget-icon ${iconTheme}">${escapeHtml(project.icon || "✦")}</div>
           <div class="widget-title">${escapeHtml(project.title)}</div>
           <div class="widget-description">${escapeHtml(project.description)}</div>
@@ -178,10 +178,45 @@ function runWidgetAnimations() {
   });
 }
 
+function enableWidgetCardNavigation() {
+  document.querySelectorAll(".widget[data-project-url]").forEach((widget) => {
+    if (widget.dataset.navBound === "1") {
+      return;
+    }
+    widget.dataset.navBound = "1";
+
+    widget.addEventListener("click", (event) => {
+      const interactive =
+        event.target instanceof Element
+          ? event.target.closest("a,button,input,textarea,select,label")
+          : null;
+      if (interactive) {
+        return;
+      }
+      const href = widget.dataset.projectUrl;
+      if (href) {
+        window.location.href = href;
+      }
+    });
+
+    widget.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") {
+        return;
+      }
+      event.preventDefault();
+      const href = widget.dataset.projectUrl;
+      if (href) {
+        window.location.href = href;
+      }
+    });
+  });
+}
+
 async function init() {
   await loadProjects();
   bootAnimations();
   runWidgetAnimations();
+  enableWidgetCardNavigation();
 }
 
 window.addEventListener("DOMContentLoaded", init);
