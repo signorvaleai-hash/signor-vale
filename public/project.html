@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#000000" />
+  <title>Project | Signor Vale</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/project.css" />
+  <script defer src="/project.js"></script>
+</head>
+<body>
+  <main class="project-page">
+    <div class="project-shell">
+      <a href="/" class="back-link">← Back to Home</a>
+
+      <section id="projectLoading" class="project-card">
+        <p class="project-muted">Loading project...</p>
+      </section>
+
+      <section id="projectNotFound" class="project-card hidden">
+        <h1>Project not found</h1>
+        <p class="project-muted">This project may be private, draft, or no longer available.</p>
+      </section>
+
+      <article id="projectDetail" class="project-card hidden">
+        <header class="project-header">
+          <div class="project-header-main">
+            <p id="projectType" class="project-type"></p>
+            <h1 id="projectTitle"></h1>
+            <p id="projectDescription" class="project-description"></p>
+          </div>
+          <img id="projectThumbnail" class="project-thumbnail hidden" alt="Project thumbnail" />
+        </header>
+
+        <div id="projectMeta" class="project-meta"></div>
+
+        <div id="projectActions" class="project-actions"></div>
+
+        <section>
+          <h2>Overview</h2>
+          <p id="projectDetails" class="project-details"></p>
+        </section>
+
+        <section>
+          <h2>Tech Stack</h2>
+          <div id="projectTech" class="badge-row"></div>
+        </section>
+
+        <section id="gallerySection" class="hidden">
+          <h2>Gallery</h2>
+          <div id="projectGallery" class="project-gallery"></div>
+        </section>
+      </article>
+    </div>
+  </main>
+</body>
+</html>

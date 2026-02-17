@@ -11,7 +11,7 @@
   <main class="page">
     <section class="card" id="loginCard">
       <h1>Admin Login</h1>
-      <p class="muted">Manage projects shown on the homepage.</p>
+      <p class="muted">Manage portfolio projects and detail pages.</p>
       <form id="loginForm" class="stack">
         <label>
           Username
@@ -41,8 +41,30 @@
         </label>
 
         <label>
+          Slug
+          <input id="slug" required maxlength="90" placeholder="my-project-name" />
+        </label>
+
+        <label>
           Category
           <input id="category" required maxlength="30" />
+        </label>
+
+        <label>
+          Type
+          <select id="projectType">
+            <option value="website">Website</option>
+            <option value="app" selected>App</option>
+            <option value="tool">Tool</option>
+          </select>
+        </label>
+
+        <label>
+          Status
+          <select id="status">
+            <option value="draft">Draft</option>
+            <option value="published" selected>Published</option>
+          </select>
         </label>
 
         <label>
@@ -69,12 +91,52 @@
           <input id="displayOrder" type="number" min="0" max="9999" required />
         </label>
 
+        <label>
+          Published At
+          <input id="publishedAt" type="datetime-local" />
+        </label>
+
         <label class="full">
-          Description
+          Thumbnail URL
+          <input id="thumbnailUrl" type="url" placeholder="https://..." />
+        </label>
+
+        <label class="full">
+          Demo URL
+          <input id="demoUrl" type="url" placeholder="https://..." />
+        </label>
+
+        <label class="full">
+          Repo URL
+          <input id="repoUrl" type="url" placeholder="https://github.com/..." />
+        </label>
+
+        <label class="full">
+          Download URL
+          <input id="downloadUrl" type="url" placeholder="https://..." />
+        </label>
+
+        <label class="full">
+          Tech Stack (comma separated)
+          <input id="techStack" placeholder="React, Node.js, SQLite" />
+        </label>
+
+        <label class="full">
+          Gallery URLs (comma or newline separated)
+          <textarea id="gallery" rows="3" placeholder="https://...\nhttps://..."></textarea>
+        </label>
+
+        <label class="full">
+          Card Description
           <textarea id="description" required maxlength="300" rows="3"></textarea>
         </label>
 
-        <label class="inline">
+        <label class="full">
+          Project Details
+          <textarea id="details" required maxlength="5000" rows="6"></textarea>
+        </label>
+
+        <label class="inline full">
           <input id="featured" type="checkbox" />
           Featured (full width card)
         </label>
@@ -92,7 +154,9 @@
           <thead>
             <tr>
               <th>Title</th>
-              <th>Category</th>
+              <th>Slug</th>
+              <th>Type</th>
+              <th>Status</th>
               <th>Year</th>
               <th>Order</th>
               <th>Featured</th>

@@ -510,3 +510,33 @@
     background: rgba(255, 255, 255, 0.04);
     font-size: 16px;
 }
+
+.widget-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.widget-action {
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    color: #fff;
+    background: rgba(0, 122, 255, 0.85);
+    padding: 8px 12px;
+    border-radius: 999px;
+    transition: all 0.25s var(--ease-ios);
+}
+
+.widget-action:hover {
+    background: rgba(0, 122, 255, 1);
+}
+
+.widget-action-ghost {
+    background: rgba(255, 255, 255, 0.12);
+}
+
+.widget-action-ghost:hover {
+    background: rgba(255, 255, 255, 0.2);
+}

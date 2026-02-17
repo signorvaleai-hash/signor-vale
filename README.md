@@ -1,9 +1,10 @@
-# Signor Vale - Production-ready Portfolio + Admin Backend
+# Signor Vale - Portfolio + Admin Backend
 
 This project now runs as a Node.js web app with:
 - Public portfolio site at `/`
+- Public project detail pages at `/projects/:slug`
 - Admin panel at `/admin`
-- Backend API for projects (`/api/projects` + protected admin CRUD)
+- Backend API for projects (`/api/projects`, `/api/projects/:slug` + protected admin CRUD)
 - SQLite persistence (configurable via `DB_PATH`)
 
 ## Local setup
@@ -27,6 +28,7 @@ This project now runs as a Node.js web app with:
 Open:
 - `http://localhost:3000/`
 - `http://localhost:3000/admin`
+- `http://localhost:3000/projects/simpleinvoice`
 
 ## Deployment (Render)
 
@@ -43,10 +45,25 @@ Important:
 - The blueprint uses a persistent disk and `DB_PATH=/var/data/site.db` so project updates survive redeploys.
 - Admin access is via `/admin` using `ADMIN_USERNAME` + `ADMIN_PASSWORD`.
 
+## Phase 1 content model
+
+Projects now support:
+- `slug`
+- `title`, `description`, `details`
+- `category`, `projectType` (`website` | `app` | `tool`)
+- `status` (`draft` | `published`)
+- `thumbnailUrl`, `gallery[]`
+- `techStack[]`
+- `demoUrl`, `repoUrl`, `downloadUrl`
+- `featured`, `displayOrder`, `publishedAt`
+
+Draft projects stay hidden from public APIs/pages until published.
+
 ## API summary
 
 Public:
 - `GET /api/projects`
+- `GET /api/projects/:slug`
 
 Admin:
 - `POST /api/admin/login` -> returns JWT token

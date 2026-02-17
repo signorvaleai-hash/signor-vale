@@ -13,6 +13,21 @@ function renderProjectCards(projects) {
       const iconTheme = ["invoice", "calendar", "notes"].includes(project.iconTheme)
         ? project.iconTheme
         : "invoice";
+      const detailHref = `/projects/${encodeURIComponent(project.slug)}`;
+
+      const actionLinks = [];
+      actionLinks.push(`<a class="widget-action" href="${detailHref}">Open Project</a>`);
+
+      if (project.demoUrl) {
+        actionLinks.push(
+          `<a class="widget-action widget-action-ghost" href="${escapeAttribute(project.demoUrl)}" target="_blank" rel="noreferrer">Live Demo</a>`
+        );
+      }
+      if (project.downloadUrl) {
+        actionLinks.push(
+          `<a class="widget-action widget-action-ghost" href="${escapeAttribute(project.downloadUrl)}" target="_blank" rel="noreferrer">Download</a>`
+        );
+      }
 
       return `
         <article class="${widgetClass}">
@@ -22,7 +37,9 @@ function renderProjectCards(projects) {
           <div class="widget-meta">
             <span class="widget-badge">${escapeHtml(project.category)}</span>
             <span class="widget-badge">${escapeHtml(String(project.year))}</span>
+            <span class="widget-badge">${escapeHtml(project.projectType || "app")}</span>
           </div>
+          <div class="widget-actions">${actionLinks.join("")}</div>
         </article>
       `;
     })
@@ -36,6 +53,10 @@ function escapeHtml(value) {
     .replace(/>/g, "&gt;")
     .replace(/\"/g, "&quot;")
     .replace(/'/g, "&#039;");
+}
+
+function escapeAttribute(value) {
+  return escapeHtml(value).replace(/`/g, "&#096;");
 }
 
 async function loadProjects() {

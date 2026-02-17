@@ -164,3 +164,24 @@ td.actionsCell {
     grid-template-columns: 1fr;
   }
 }
+
+.linkButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  color: var(--text);
+  text-decoration: none;
+  padding: 10px 12px;
+  line-height: 1;
+}
+
+.linkButton:hover {
+  border-color: color-mix(in oklab, var(--accent) 55%, var(--border));
+  color: white;
+}
+
+td.actionsCell {
+  white-space: nowrap;
+}

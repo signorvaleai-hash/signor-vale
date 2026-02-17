@@ -1,0 +1,154 @@
+.project-page {
+  min-height: 100vh;
+  padding: 120px 24px 60px;
+  background: #000;
+  color: #fff;
+}
+
+.project-shell {
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 15px;
+}
+
+.back-link:hover {
+  color: #fff;
+}
+
+.project-card {
+  background: rgba(28, 28, 30, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 24px;
+  padding: 28px;
+  backdrop-filter: blur(16px);
+}
+
+.hidden {
+  display: none;
+}
+
+.project-muted {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.project-header {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: 1fr;
+  margin-bottom: 20px;
+}
+
+.project-type {
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 12px;
+  color: #007aff;
+  margin-bottom: 8px;
+}
+
+#projectTitle {
+  font-size: clamp(30px, 6vw, 52px);
+  margin: 0 0 10px;
+  line-height: 1.08;
+}
+
+.project-description {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.75);
+  font-size: 19px;
+  line-height: 1.45;
+}
+
+.project-thumbnail {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.project-meta,
+.badge-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.project-meta {
+  margin-bottom: 18px;
+}
+
+.project-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.project-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.project-action {
+  border-radius: 999px;
+  text-decoration: none;
+  padding: 10px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  background: #007aff;
+  color: #fff;
+}
+
+.project-action-ghost {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+}
+
+.project-details {
+  white-space: pre-wrap;
+  color: rgba(255, 255, 255, 0.88);
+  line-height: 1.6;
+}
+
+#projectDetail section {
+  margin-top: 22px;
+}
+
+#projectDetail h2 {
+  margin: 0 0 10px;
+  font-size: 22px;
+}
+
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.gallery-image {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+@media (min-width: 900px) {
+  .project-header {
+    grid-template-columns: 1.25fr 1fr;
+    align-items: start;
+  }
+}
