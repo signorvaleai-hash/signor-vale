@@ -31,6 +31,7 @@ function renderProjectCards(projects) {
 
       return `
         <article class="${widgetClass}" data-project-url="${detailHref}" tabindex="0" role="link" aria-label="Open ${escapeAttribute(project.title)}">
+          <a class="widget-stretched-link" href="${detailHref}" aria-label="Open ${escapeAttribute(project.title)}"></a>
           <div class="widget-icon ${iconTheme}">${escapeHtml(project.icon || "✦")}</div>
           <div class="widget-title">${escapeHtml(project.title)}</div>
           <div class="widget-description">${escapeHtml(project.description)}</div>

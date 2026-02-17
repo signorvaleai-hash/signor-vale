@@ -287,8 +287,8 @@
             gap: 20px;
         }
 
-        .widget {
-            background: rgba(28, 28, 30, 0.6);
+.widget {
+    background: rgba(28, 28, 30, 0.6);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -296,8 +296,8 @@
             padding: 32px;
             transition: all 0.5s var(--ease-ios);
             cursor: pointer;
-            position: relative;
-            overflow: hidden;
+    position: relative;
+    overflow: hidden;
             opacity: 0;
             transform: translateY(40px) scale(0.95);
         }
@@ -319,6 +319,18 @@
 
 .widget:hover::before {
     opacity: 1;
+}
+
+.widget > * {
+    position: relative;
+    z-index: 2;
+}
+
+.widget-stretched-link {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
 }
 
 .widget:focus-visible {
@@ -521,6 +533,8 @@
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 16px;
+    position: relative;
+    z-index: 3;
 }
 
 .widget-action {

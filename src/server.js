@@ -707,7 +707,22 @@ app.delete("/api/admin/projects/:id", authenticateAdmin, (req, res) => {
 });
 
 const publicDir = path.join(__dirname, "..", "public");
-app.use(express.static(publicDir, { maxAge: NODE_ENV === "production" ? "7d" : 0 }));
+app.use(
+  express.static(publicDir, {
+    etag: true,
+    maxAge: NODE_ENV === "production" ? "1d" : 0,
+    setHeaders: (res, filePath) => {
+      if (filePath.endsWith(".html")) {
+        res.setHeader("Cache-Control", "no-store");
+        return;
+      }
+
+      if (filePath.endsWith(".js") || filePath.endsWith(".css")) {
+        res.setHeader("Cache-Control", "public, max-age=300, must-revalidate");
+      }
+    },
+  })
+);
 
 app.get("/admin", (_req, res) => {
   res.sendFile(path.join(publicDir, "admin.html"));
