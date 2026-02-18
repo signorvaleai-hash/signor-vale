@@ -433,20 +433,35 @@
         .settings-group {
             background: rgba(28, 28, 30, 0.6);
             backdrop-filter: blur(20px);
-            border-radius: 16px;
+            border-radius: 24px;
             overflow: hidden;
             border: 1px solid rgba(255, 255, 255, 0.08);
             opacity: 0;
             transform: translateY(30px);
         }
 
+        .philosophy-intro {
+            margin: -14px 0 20px;
+            font-size: 18px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 700px;
+            letter-spacing: -0.01em;
+        }
+
+        .philosophy-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
         .settings-row {
             padding: 20px 24px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background 0.2s;
+            align-items: flex-start;
+            gap: 18px;
+            transition: background 0.2s, border-color 0.2s;
         }
 
         .settings-row:last-child {
@@ -457,14 +472,40 @@
             background: rgba(255, 255, 255, 0.05);
         }
 
+        .settings-index {
+            width: 34px;
+            height: 34px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.7);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            flex: 0 0 auto;
+            margin-top: 1px;
+        }
+
+        .settings-body {
+            display: grid;
+            gap: 6px;
+            min-width: 0;
+        }
+
         .settings-label {
-            font-size: 17px;
+            font-size: 18px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
             color: #fff;
         }
 
         .settings-value {
-            font-size: 17px;
-            color: rgba(255, 255, 255, 0.5);
+            font-size: 16px;
+            line-height: 1.5;
+            color: rgba(255, 255, 255, 0.64);
         }
 
         .settings-chevron {
@@ -550,6 +591,11 @@
             .work, .philosophy { padding: 80px 24px; }
             .widget { padding: 24px; }
             .section-title { font-size: 32px; }
+            .philosophy-intro { font-size: 17px; margin-top: -10px; }
+            .settings-row { padding: 16px 18px; gap: 12px; }
+            .settings-index { width: 30px; height: 30px; font-size: 10px; }
+            .settings-label { font-size: 17px; }
+            .settings-value { font-size: 15px; }
         }
 
 .empty-state {
@@ -648,14 +694,14 @@ html[data-theme="light"] .theme-toggle:hover {
 
 html[data-theme="light"] .hero-eyebrow,
 html[data-theme="light"] .hero-subhead,
-html[data-theme="light"] .contact-subtitle {
+html[data-theme="light"] .contact-subtitle,
+html[data-theme="light"] .philosophy-intro {
     color: rgba(16, 18, 23, 0.62);
 }
 
 html[data-theme="light"] .hero-headline span,
 html[data-theme="light"] .section-title,
-html[data-theme="light"] .contact-title,
-html[data-theme="light"] .settings-label {
+html[data-theme="light"] .contact-title {
     background: linear-gradient(180deg, #0f1117 0%, rgba(15, 17, 23, 0.78) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -707,6 +753,12 @@ html[data-theme="light"] .settings-row {
 
 html[data-theme="light"] .settings-row:hover {
     background: rgba(17, 19, 24, 0.05);
+}
+
+html[data-theme="light"] .settings-index {
+    border-color: rgba(17, 19, 24, 0.16);
+    background: rgba(17, 19, 24, 0.06);
+    color: rgba(17, 19, 24, 0.64);
 }
 
 html[data-theme="light"] .contact-button {
