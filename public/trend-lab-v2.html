@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#090b12" />
+  <title>Trend Lab V2 | Signor Vale</title>
+  <link rel="stylesheet" href="/trend-lab-v2.css?v=20260218a" />
+  <script defer src="/trend-lab-v2.js?v=20260218a"></script>
+</head>
+<body>
+  <div class="bg" aria-hidden="true">
+    <div class="orb a"></div>
+    <div class="orb b"></div>
+  </div>
+
+  <header class="topbar">
+    <a class="brand" href="/">Signor Vale</a>
+    <div class="top-actions">
+      <a class="top-link" href="/">Current Site</a>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme" aria-pressed="false">
+        <span aria-hidden="true">◐</span>
+        <span id="themeToggleLabel">Light</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <p class="eyebrow">Experimental V2</p>
+      <h1 class="title">A portfolio that behaves like a product interface.</h1>
+      <p class="subtitle">Fast scan. Quick decisions. Clear outcomes. This is a tighter direction for modern product-minded visitors.</p>
+      <div class="hero-actions">
+        <a class="button primary" href="#explorer">Explore Work</a>
+        <a class="button" href="/">Back to Current Site</a>
+      </div>
+      <div class="metrics">
+        <article class="metric"><p class="k">Projects</p><p id="metricProjects" class="v">0</p></article>
+        <article class="metric"><p class="k">Categories</p><p id="metricCategories" class="v">0</p></article>
+        <article class="metric"><p class="k">Mode</p><p class="v metric-mode">Filter-first</p></article>
+      </div>
+    </section>
+
+    <section id="explorer" class="explorer">
+      <div class="explorer-head">
+        <h2>Project Explorer</h2>
+        <p>Press <kbd>/</kbd> to jump to search.</p>
+      </div>
+
+      <div class="controls">
+        <div class="search">
+          <label for="searchInput">Search</label>
+          <input id="searchInput" type="search" placeholder="Title, category, stack..." autocomplete="off" />
+        </div>
+
+        <div>
+          <p class="control-label">Category</p>
+          <div id="categoryFilters" class="chips"></div>
+        </div>
+
+        <div>
+          <p class="control-label">Type</p>
+          <div id="typeFilters" class="chips">
+            <button class="chip active" type="button" data-type="all">All</button>
+            <button class="chip" type="button" data-type="website">Website</button>
+            <button class="chip" type="button" data-type="app">App</button>
+            <button class="chip" type="button" data-type="tool">Tool</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="projectGrid" class="grid" aria-live="polite"></div>
+      <p id="emptyState" class="empty hidden">No matches. Try broader filters.</p>
+    </section>
+  </main>
+</body>
+</html>

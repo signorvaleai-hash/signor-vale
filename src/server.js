@@ -728,6 +728,14 @@ app.get("/admin", (_req, res) => {
   res.sendFile(path.join(publicDir, "admin.html"));
 });
 
+app.get("/trend-lab", (_req, res) => {
+  res.sendFile(path.join(publicDir, "trend-lab.html"));
+});
+
+app.get("/trend-lab-v2", (_req, res) => {
+  res.sendFile(path.join(publicDir, "trend-lab-v2.html"));
+});
+
 app.get("/projects/:slug", (_req, res) => {
   res.sendFile(path.join(publicDir, "project.html"));
 });

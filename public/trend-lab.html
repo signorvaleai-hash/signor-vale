@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0a0d14" />
+  <title>Trend Lab | Signor Vale</title>
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem("signor_theme");
+        if (theme === "light") {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      } catch (_) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="trend-lab.css?v=20260218b" />
+  <script defer src="theme.js?v=20260218e"></script>
+  <script defer src="trend-lab.js?v=20260218b"></script>
+</head>
+<body>
+  <div class="backdrop" aria-hidden="true">
+    <div class="backdrop-orb orb-a"></div>
+    <div class="backdrop-orb orb-b"></div>
+    <div class="backdrop-orb orb-c"></div>
+    <div class="grain"></div>
+  </div>
+
+  <header class="topbar">
+    <a href="/" class="brand">Signor Vale</a>
+    <div class="topbar-actions">
+      <a href="/" class="top-link">Current Site</a>
+      <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme" aria-pressed="false">
+        <span class="theme-toggle-icon" aria-hidden="true">◐</span>
+        <span id="themeToggleLabel">Light</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <p class="hero-kicker">Trend Lab 2026</p>
+      <h1 class="hero-title">A portfolio that feels like a product, not a brochure.</h1>
+      <p class="hero-subtitle">Dense scanning, faster discovery, clearer intent. No dead ends. No noise. Just real work and direct paths to use it.</p>
+      <div class="hero-actions">
+        <a href="#explorer" class="button button-primary">Explore Work</a>
+        <a href="/" class="button button-ghost">Back to Current Version</a>
+      </div>
+
+      <div class="hero-metrics">
+        <article class="metric-card">
+          <p class="metric-label">Projects</p>
+          <p id="metricProjects" class="metric-value">0</p>
+        </article>
+        <article class="metric-card">
+          <p class="metric-label">Categories</p>
+          <p id="metricCategories" class="metric-value">0</p>
+        </article>
+        <article class="metric-card">
+          <p class="metric-label">Interaction Model</p>
+          <p class="metric-value metric-note">Filter-first</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="explorer" class="explorer">
+      <div class="explorer-head">
+        <h2>Project Explorer</h2>
+        <p>Press <kbd>/</kbd> to search instantly.</p>
+      </div>
+
+      <div class="controls-panel">
+        <label class="search-wrap" for="searchInput">
+          <span>Search</span>
+          <input id="searchInput" type="search" placeholder="Title, stack, category..." autocomplete="off" />
+        </label>
+
+        <div class="control-block">
+          <p class="control-label">Category</p>
+          <div id="categoryFilters" class="chip-row" role="toolbar" aria-label="Filter by category"></div>
+        </div>
+
+        <div class="control-block">
+          <p class="control-label">Type</p>
+          <div id="typeFilters" class="chip-row" role="toolbar" aria-label="Filter by type">
+            <button class="chip is-active" type="button" data-filter-type="all">All</button>
+            <button class="chip" type="button" data-filter-type="website">Website</button>
+            <button class="chip" type="button" data-filter-type="app">App</button>
+            <button class="chip" type="button" data-filter-type="tool">Tool</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="projectGrid" class="project-grid" aria-live="polite"></div>
+      <p id="emptyState" class="empty-state hidden">No matches. Try a broader search or switch filters.</p>
+    </section>
+  </main>
+</body>
+</html>
