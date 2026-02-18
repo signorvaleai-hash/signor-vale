@@ -49,7 +49,7 @@
         }
 
         .nav-glass {
-            max-width: 680px;
+            max-width: 820px;
             margin: 0 auto;
             background: rgba(28, 28, 30, 0.6);
             backdrop-filter: saturate(180%) blur(20px);
@@ -83,6 +83,12 @@
             gap: 24px;
         }
 
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
         .nav-link {
             font-size: 15px;
             color: rgba(255, 255, 255, 0.7);
@@ -110,6 +116,31 @@
 
         .nav-link:hover::after {
             transform: translateX(-50%) scale(1);
+        }
+
+        .theme-toggle {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            border-radius: 999px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.08);
+            color: rgba(255, 255, 255, 0.9);
+            padding: 7px 12px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.25s var(--ease-ios);
+        }
+
+        .theme-toggle:hover {
+            background: rgba(255, 255, 255, 0.16);
+            border-color: rgba(255, 255, 255, 0.32);
+        }
+
+        .theme-toggle-icon {
+            font-size: 12px;
+            line-height: 1;
         }
 
         /* Hero - iPhone Lock Screen Depth */
@@ -513,6 +544,8 @@
         /* Responsive */
         @media (max-width: 768px) {
             .nav-links { display: none; }
+            .theme-toggle { padding: 7px 10px; }
+            .theme-toggle span:last-child { display: none; }
             .hero { padding: 100px 24px; }
             .work, .philosophy { padding: 80px 24px; }
             .widget { padding: 24px; }
@@ -558,4 +591,150 @@
 
 .widget-action-ghost:hover {
     background: rgba(255, 255, 255, 0.2);
+}
+
+html[data-theme="light"] body {
+    background: #f5f6fa;
+    color: #15161a;
+}
+
+html[data-theme="light"] .work,
+html[data-theme="light"] .philosophy {
+    background: transparent;
+}
+
+html[data-theme="light"] .hero-bg {
+    background:
+        radial-gradient(circle at 18% 42%, rgba(55, 96, 200, 0.16) 0%, transparent 52%),
+        radial-gradient(circle at 80% 75%, rgba(0, 122, 255, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 20%, rgba(70, 160, 255, 0.1) 0%, transparent 55%);
+}
+
+html[data-theme="light"] .nav-glass {
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(20, 20, 24, 0.08);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.07);
+}
+
+html[data-theme="light"] .nav-container.scrolled .nav-glass {
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.09);
+}
+
+html[data-theme="light"] .nav-logo {
+    background: linear-gradient(135deg, #0f1117 0%, #474b57 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+html[data-theme="light"] .nav-link {
+    color: rgba(17, 19, 24, 0.62);
+}
+
+html[data-theme="light"] .nav-link:hover {
+    color: #111318;
+}
+
+html[data-theme="light"] .theme-toggle {
+    background: rgba(24, 25, 31, 0.07);
+    border-color: rgba(24, 25, 31, 0.14);
+    color: #111318;
+}
+
+html[data-theme="light"] .theme-toggle:hover {
+    background: rgba(24, 25, 31, 0.11);
+    border-color: rgba(24, 25, 31, 0.2);
+}
+
+html[data-theme="light"] .hero-eyebrow,
+html[data-theme="light"] .hero-subhead,
+html[data-theme="light"] .contact-subtitle {
+    color: rgba(16, 18, 23, 0.62);
+}
+
+html[data-theme="light"] .hero-headline span,
+html[data-theme="light"] .section-title,
+html[data-theme="light"] .contact-title,
+html[data-theme="light"] .settings-label {
+    background: linear-gradient(180deg, #0f1117 0%, rgba(15, 17, 23, 0.78) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+html[data-theme="light"] .ios-button-secondary {
+    background: rgba(16, 18, 23, 0.06);
+    color: #111318;
+    border-color: rgba(16, 18, 23, 0.16);
+}
+
+html[data-theme="light"] .ios-button-secondary:hover {
+    background: rgba(16, 18, 23, 0.11);
+}
+
+html[data-theme="light"] .home-indicator {
+    background: rgba(0, 0, 0, 0.7);
+}
+
+html[data-theme="light"] .widget,
+html[data-theme="light"] .settings-group {
+    background: rgba(255, 255, 255, 0.78);
+    border-color: rgba(16, 18, 23, 0.1);
+}
+
+html[data-theme="light"] .widget:hover {
+    background: rgba(255, 255, 255, 0.94);
+    box-shadow: 0 20px 35px rgba(0, 0, 0, 0.12);
+}
+
+html[data-theme="light"] .widget-title,
+html[data-theme="light"] .settings-label {
+    color: #111318;
+}
+
+html[data-theme="light"] .widget-description,
+html[data-theme="light"] .settings-value,
+html[data-theme="light"] .widget-badge {
+    color: rgba(17, 19, 24, 0.6);
+}
+
+html[data-theme="light"] .widget-badge {
+    background: rgba(17, 19, 24, 0.08);
+}
+
+html[data-theme="light"] .settings-row {
+    border-bottom-color: rgba(17, 19, 24, 0.08);
+}
+
+html[data-theme="light"] .settings-row:hover {
+    background: rgba(17, 19, 24, 0.05);
+}
+
+html[data-theme="light"] .contact-button {
+    background: rgba(17, 19, 24, 0.08);
+    border-color: rgba(17, 19, 24, 0.16);
+    color: #111318;
+}
+
+html[data-theme="light"] .contact-button:hover {
+    background: rgba(17, 19, 24, 0.14);
+}
+
+html[data-theme="light"] .empty-state {
+    border-color: rgba(17, 19, 24, 0.14);
+    color: rgba(17, 19, 24, 0.68);
+    background: rgba(17, 19, 24, 0.05);
+}
+
+html[data-theme="light"] .widget-action {
+    color: #fff;
+    background: rgba(0, 122, 255, 0.9);
+}
+
+html[data-theme="light"] .widget-action-ghost {
+    background: rgba(17, 19, 24, 0.1);
+    color: #111318;
+}
+
+html[data-theme="light"] .widget-action-ghost:hover {
+    background: rgba(17, 19, 24, 0.16);
 }
