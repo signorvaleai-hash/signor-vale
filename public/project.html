@@ -6,8 +6,8 @@
   <meta name="theme-color" content="#000000" />
   <title>Project | Signor Vale</title>
   <link rel="stylesheet" href="/styles.css?v=20260218b" />
-  <link rel="stylesheet" href="/project.css?v=20260218b" />
-  <script defer src="/project.js?v=20260218b"></script>
+  <link rel="stylesheet" href="/project.css?v=20260218c" />
+  <script defer src="/project.js?v=20260218c"></script>
 </head>
 <body>
   <main class="project-page">
@@ -29,26 +29,22 @@
             <p id="projectType" class="project-type"></p>
             <h1 id="projectTitle"></h1>
             <p id="projectDescription" class="project-description"></p>
+            <p id="projectMetaLine" class="project-meta-line"></p>
           </div>
           <img id="projectThumbnail" class="project-thumbnail hidden" alt="Project thumbnail" />
         </header>
 
-        <div id="projectMeta" class="project-meta"></div>
-
         <div id="projectActions" class="project-actions"></div>
 
-        <section>
-          <h2>Overview</h2>
+        <section id="detailsSection" class="project-section hidden">
           <p id="projectDetails" class="project-details"></p>
         </section>
 
-        <section>
-          <h2>Tech Stack</h2>
-          <div id="projectTech" class="badge-row"></div>
+        <section id="techSection" class="project-section hidden">
+          <p id="projectTechLine" class="project-tech-line"></p>
         </section>
 
-        <section id="gallerySection" class="hidden">
-          <h2>Gallery</h2>
+        <section id="gallerySection" class="project-section hidden">
           <div id="projectGallery" class="project-gallery"></div>
         </section>
       </article>

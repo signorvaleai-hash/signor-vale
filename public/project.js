@@ -12,16 +12,9 @@ function setVisible(id, visible) {
   el.classList.toggle("hidden", !visible);
 }
 
-function makeMetaBadge(text) {
-  const badge = document.createElement("span");
-  badge.className = "project-badge";
-  badge.textContent = text;
-  return badge;
-}
-
-function makeActionLink(label, href, ghost = false) {
+function makeActionLink(label, href, primary = false) {
   const link = document.createElement("a");
-  link.className = ghost ? "project-action project-action-ghost" : "project-action";
+  link.className = primary ? "project-action project-action-primary" : "project-action";
   link.textContent = label;
   link.href = href;
 
@@ -40,27 +33,25 @@ function renderProject(project) {
   const titleEl = document.getElementById("projectTitle");
   const descEl = document.getElementById("projectDescription");
   const detailsEl = document.getElementById("projectDetails");
-  const metaEl = document.getElementById("projectMeta");
-  const techEl = document.getElementById("projectTech");
+  const metaLineEl = document.getElementById("projectMetaLine");
+  const techLineEl = document.getElementById("projectTechLine");
   const actionsEl = document.getElementById("projectActions");
   const galleryEl = document.getElementById("projectGallery");
   const thumbnailEl = document.getElementById("projectThumbnail");
 
-  if (!typeEl || !titleEl || !descEl || !detailsEl || !metaEl || !techEl || !actionsEl || !galleryEl || !thumbnailEl) {
+  if (!typeEl || !titleEl || !descEl || !detailsEl || !metaLineEl || !techLineEl || !actionsEl || !galleryEl || !thumbnailEl) {
     return;
   }
 
   typeEl.textContent = project.projectType || "project";
   titleEl.textContent = project.title || "Untitled Project";
   descEl.textContent = project.description || "";
-  detailsEl.textContent = project.details || project.description || "";
 
-  metaEl.innerHTML = "";
-  metaEl.appendChild(makeMetaBadge(project.category || "General"));
-  metaEl.appendChild(makeMetaBadge(String(project.year || "")));
-  if (project.status) {
-    metaEl.appendChild(makeMetaBadge(project.status));
-  }
+  const metaParts = [];
+  if (project.category) metaParts.push(project.category);
+  if (project.year) metaParts.push(String(project.year));
+  metaLineEl.textContent = metaParts.join(" · ");
+  setVisible("projectMetaLine", metaParts.length > 0);
 
   if (project.thumbnailUrl) {
     thumbnailEl.src = project.thumbnailUrl;
@@ -71,29 +62,29 @@ function renderProject(project) {
   }
 
   actionsEl.innerHTML = "";
-  actionsEl.appendChild(makeActionLink("Back to Home", "/", true));
   if (project.demoUrl) {
-    actionsEl.appendChild(makeActionLink("Live Demo", project.demoUrl));
+    actionsEl.appendChild(makeActionLink("Live Demo", project.demoUrl, true));
   }
   if (project.downloadUrl) {
-    actionsEl.appendChild(makeActionLink("Download", project.downloadUrl));
+    actionsEl.appendChild(makeActionLink("Download", project.downloadUrl, !project.demoUrl));
   }
   if (project.repoUrl) {
-    actionsEl.appendChild(makeActionLink("Source Code", project.repoUrl, true));
+    actionsEl.appendChild(makeActionLink("Source", project.repoUrl, false));
   }
+  setVisible("projectActions", actionsEl.children.length > 0);
 
-  techEl.innerHTML = "";
-  const stack = Array.isArray(project.techStack) ? project.techStack : [];
-  if (stack.length === 0) {
-    techEl.appendChild(makeMetaBadge("No tech stack added yet"));
-  } else {
-    for (const item of stack) {
-      techEl.appendChild(makeMetaBadge(item));
-    }
-  }
+  const detailsText = (project.details || "").trim();
+  const descText = (project.description || "").trim();
+  const showDetails = detailsText && detailsText !== descText;
+  detailsEl.textContent = showDetails ? detailsText : "";
+  setVisible("detailsSection", Boolean(showDetails));
+
+  const stack = Array.isArray(project.techStack) ? project.techStack.filter(Boolean) : [];
+  techLineEl.textContent = stack.join(" · ");
+  setVisible("techSection", stack.length > 0);
 
   galleryEl.innerHTML = "";
-  const gallery = Array.isArray(project.gallery) ? project.gallery : [];
+  const gallery = Array.isArray(project.gallery) ? project.gallery.filter(Boolean) : [];
   if (gallery.length > 0) {
     for (const imageUrl of gallery) {
       const img = document.createElement("img");
