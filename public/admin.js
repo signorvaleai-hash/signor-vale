@@ -17,6 +17,12 @@ const slugInput = document.getElementById("slug");
 let slugTouched = false;
 let currentProjects = [];
 
+function initThemeToggle() {
+  if (window.SignorTheme && typeof window.SignorTheme.initThemeToggle === "function") {
+    window.SignorTheme.initThemeToggle();
+  }
+}
+
 function getToken() {
   return localStorage.getItem(TOKEN_KEY) || "";
 }
@@ -337,6 +343,7 @@ logoutButton.addEventListener("click", () => {
 });
 
 async function init() {
+  initThemeToggle();
   clearProjectForm();
   const token = getToken();
   if (!token) {

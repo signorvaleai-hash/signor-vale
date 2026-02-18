@@ -6,6 +6,36 @@
   --accent: #2d7ff9;
   --border: #273046;
   --danger: #dc3545;
+  --surface: #0f1420;
+  --surface-shadow: rgba(0, 0, 0, 0.35);
+  --bg-gradient: radial-gradient(circle at top, #17233d 0%, var(--bg) 55%);
+  --error: #ff9fa9;
+  --danger-text: #ffb6be;
+  --toggle-bg: rgba(255, 255, 255, 0.08);
+  --toggle-border: rgba(255, 255, 255, 0.2);
+  --toggle-text: rgba(255, 255, 255, 0.9);
+  --toggle-hover-bg: rgba(255, 255, 255, 0.16);
+  --toggle-hover-border: rgba(255, 255, 255, 0.32);
+}
+
+html[data-theme="light"] {
+  --bg: #f5f6fa;
+  --panel: #ffffff;
+  --text: #111318;
+  --muted: rgba(17, 19, 24, 0.64);
+  --accent: #0a84ff;
+  --border: rgba(17, 19, 24, 0.14);
+  --danger: #d63345;
+  --surface: #f3f6fb;
+  --surface-shadow: rgba(12, 22, 48, 0.1);
+  --bg-gradient: radial-gradient(circle at top, #dbe8ff 0%, var(--bg) 50%);
+  --error: #b42335;
+  --danger-text: #b42335;
+  --toggle-bg: rgba(17, 19, 24, 0.07);
+  --toggle-border: rgba(17, 19, 24, 0.15);
+  --toggle-text: #111318;
+  --toggle-hover-bg: rgba(17, 19, 24, 0.11);
+  --toggle-hover-border: rgba(17, 19, 24, 0.22);
 }
 
 * {
@@ -16,7 +46,7 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: "SF Pro Text", "Segoe UI", sans-serif;
-  background: radial-gradient(circle at top, #17233d 0%, var(--bg) 55%);
+  background: var(--bg-gradient);
   color: var(--text);
 }
 
@@ -26,12 +56,30 @@ body {
   padding: 32px 20px;
 }
 
+.page-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.back-link {
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.back-link:hover {
+  color: var(--text);
+}
+
 .card {
-  background: color-mix(in oklab, var(--panel) 88%, black);
+  background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 16px;
   padding: 24px;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 16px 48px var(--surface-shadow);
 }
 
 .hidden {
@@ -87,7 +135,7 @@ select,
 textarea {
   border-radius: 10px;
   border: 1px solid var(--border);
-  background: #0f1420;
+  background: var(--surface);
   color: var(--text);
   padding: 10px 12px;
 }
@@ -115,7 +163,7 @@ button.secondary {
 button.danger {
   background: transparent;
   border-color: color-mix(in oklab, var(--danger) 45%, var(--border));
-  color: #ffb6be;
+  color: var(--danger-text);
 }
 
 .toolbar {
@@ -132,7 +180,7 @@ button.danger {
 
 .error {
   min-height: 20px;
-  color: #ff9fa9;
+  color: var(--error);
   font-size: 0.9rem;
 }
 
@@ -184,4 +232,29 @@ td.actionsCell {
 
 td.actionsCell {
   white-space: nowrap;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 999px;
+  border: 1px solid var(--toggle-border);
+  background: var(--toggle-bg);
+  color: var(--toggle-text);
+  padding: 7px 12px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.theme-toggle:hover {
+  background: var(--toggle-hover-bg);
+  border-color: var(--toggle-hover-border);
+}
+
+.theme-toggle-icon {
+  font-size: 12px;
+  line-height: 1;
 }

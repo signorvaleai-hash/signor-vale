@@ -1,56 +1,7 @@
-const THEME_STORAGE_KEY = "signor_theme";
-
-function getStoredTheme() {
-  try {
-    const stored = localStorage.getItem(THEME_STORAGE_KEY);
-    return stored === "light" ? "light" : "dark";
-  } catch {
-    return "dark";
-  }
-}
-
-function updateThemeToggleUI(theme) {
-  const button = document.getElementById("themeToggle");
-  const label = document.getElementById("themeToggleLabel");
-  if (!button || !label) {
-    return;
-  }
-
-  const nextTheme = theme === "light" ? "dark" : "light";
-  label.textContent = nextTheme === "light" ? "Light" : "Dark";
-  button.setAttribute("aria-label", `Switch to ${nextTheme} mode`);
-  button.setAttribute("aria-pressed", theme === "light" ? "true" : "false");
-}
-
-function applyTheme(theme) {
-  const resolvedTheme = theme === "light" ? "light" : "dark";
-  document.documentElement.setAttribute("data-theme", resolvedTheme);
-
-  const themeMeta = document.querySelector('meta[name="theme-color"]');
-  if (themeMeta) {
-    themeMeta.setAttribute("content", resolvedTheme === "light" ? "#f5f6fa" : "#000000");
-  }
-
-  updateThemeToggleUI(resolvedTheme);
-}
-
 function initThemeToggle() {
-  const toggle = document.getElementById("themeToggle");
-  const initialTheme = getStoredTheme();
-  applyTheme(initialTheme);
-
-  if (!toggle) {
-    return;
+  if (window.SignorTheme && typeof window.SignorTheme.initThemeToggle === "function") {
+    window.SignorTheme.initThemeToggle();
   }
-
-  toggle.addEventListener("click", () => {
-    const current = document.documentElement.getAttribute("data-theme") === "light" ? "light" : "dark";
-    const next = current === "light" ? "dark" : "light";
-    try {
-      localStorage.setItem(THEME_STORAGE_KEY, next);
-    } catch {}
-    applyTheme(next);
-  });
 }
 
 function renderProjectCards(projects) {

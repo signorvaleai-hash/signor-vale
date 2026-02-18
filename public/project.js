@@ -100,7 +100,14 @@ function renderProject(project) {
   }
 }
 
+function initProjectThemeToggle() {
+  if (window.SignorTheme && typeof window.SignorTheme.initThemeToggle === "function") {
+    window.SignorTheme.initThemeToggle();
+  }
+}
+
 async function init() {
+  initProjectThemeToggle();
   const slug = getProjectSlugFromPath();
 
   if (!slug) {

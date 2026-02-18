@@ -5,14 +5,31 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#000000" />
   <title>Project | Signor Vale</title>
-  <link rel="stylesheet" href="/styles.css?v=20260218b" />
-  <link rel="stylesheet" href="/project.css?v=20260218c" />
-  <script defer src="/project.js?v=20260218c"></script>
+  <script>
+    (function () {
+      try {
+        var theme = localStorage.getItem("signor_theme");
+        if (theme === "light") {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      } catch (_) {}
+    })();
+  </script>
+  <link rel="stylesheet" href="/styles.css?v=20260218f" />
+  <link rel="stylesheet" href="/project.css?v=20260218f" />
+  <script defer src="/theme.js?v=20260218f"></script>
+  <script defer src="/project.js?v=20260218f"></script>
 </head>
 <body>
   <main class="project-page">
     <div class="project-shell">
-      <a href="/" class="back-link">← Back to Home</a>
+      <div class="project-topbar">
+        <a href="/" class="back-link">← Back to Home</a>
+        <button id="themeToggle" class="theme-toggle" type="button" aria-label="Switch theme" aria-pressed="false">
+          <span class="theme-toggle-icon" aria-hidden="true">◐</span>
+          <span id="themeToggleLabel">Light</span>
+        </button>
+      </div>
 
       <section id="projectLoading" class="project-card">
         <p class="project-muted">Loading project...</p>
