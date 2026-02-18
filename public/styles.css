@@ -318,6 +318,57 @@
             gap: 20px;
         }
 
+        .project-category {
+            padding: 18px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(18, 18, 22, 0.58);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .project-category + .project-category {
+            margin-top: 14px;
+        }
+
+        .project-category-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 14px;
+            padding: 4px 6px 0;
+        }
+
+        .project-category-title {
+            margin: 0;
+            font-size: 20px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            color: #fff;
+        }
+
+        .project-category-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 30px;
+            height: 30px;
+            border-radius: 999px;
+            padding: 0 10px;
+            font-size: 12px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.72);
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+        }
+
+        .project-category-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 14px;
+        }
+
 .widget {
     background: rgba(28, 28, 30, 0.6);
             backdrop-filter: blur(20px);
@@ -422,6 +473,88 @@
             background: rgba(255, 255, 255, 0.1);
             padding: 6px 12px;
             border-radius: 100px;
+        }
+
+        .widget-compact {
+            border-radius: 20px;
+            padding: 16px;
+        }
+
+        .widget-compact:hover {
+            transform: translateY(-3px) scale(1);
+        }
+
+        .widget-head {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .widget-compact .widget-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            font-size: 18px;
+            margin-bottom: 0;
+            flex: 0 0 auto;
+        }
+
+        .widget-thumb {
+            width: 90px;
+            height: 56px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: rgba(255, 255, 255, 0.08);
+            flex: 0 0 auto;
+        }
+
+        .widget-thumb-fallback {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(255, 255, 255, 0.88);
+            font-size: 20px;
+            font-weight: 600;
+            background: linear-gradient(135deg, rgba(10, 132, 255, 0.35) 0%, rgba(52, 199, 89, 0.22) 100%);
+        }
+
+        .widget-compact .widget-title {
+            font-size: 22px;
+            margin-bottom: 6px;
+            line-height: 1.15;
+        }
+
+        .widget-compact .widget-description {
+            font-size: 15px;
+            line-height: 1.45;
+            max-width: none;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+        }
+
+        .widget-compact .widget-meta {
+            margin-top: 12px;
+            gap: 8px;
+        }
+
+        .widget-compact .widget-badge {
+            font-size: 12px;
+            padding: 5px 10px;
+        }
+
+        .widget-compact .widget-actions {
+            margin-top: 12px;
+            gap: 8px;
+        }
+
+        .widget-compact .widget-action {
+            font-size: 12px;
+            padding: 7px 10px;
         }
 
         /* Philosophy - iOS Settings Style */
@@ -583,13 +716,24 @@
         }
 
         /* Responsive */
+        @media (max-width: 1080px) {
+            .project-category-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .theme-toggle { padding: 7px 10px; }
             .theme-toggle span:last-child { display: none; }
             .hero { padding: 100px 24px; }
             .work, .philosophy { padding: 80px 24px; }
+            .project-category { padding: 12px; border-radius: 18px; }
+            .project-category-title { font-size: 18px; }
+            .project-category-grid { grid-template-columns: 1fr; gap: 10px; }
             .widget { padding: 24px; }
+            .widget-compact { padding: 14px; border-radius: 16px; }
+            .widget-thumb { width: 82px; height: 52px; }
             .section-title { font-size: 32px; }
             .philosophy-intro { font-size: 17px; margin-top: -10px; }
             .settings-row { padding: 16px 18px; gap: 12px; }
@@ -727,6 +871,11 @@ html[data-theme="light"] .settings-group {
     border-color: rgba(16, 18, 23, 0.1);
 }
 
+html[data-theme="light"] .project-category {
+    background: rgba(255, 255, 255, 0.78);
+    border-color: rgba(16, 18, 23, 0.1);
+}
+
 html[data-theme="light"] .widget:hover {
     background: rgba(255, 255, 255, 0.94);
     box-shadow: 0 20px 35px rgba(0, 0, 0, 0.12);
@@ -737,14 +886,34 @@ html[data-theme="light"] .settings-label {
     color: #111318;
 }
 
+html[data-theme="light"] .project-category-title {
+    color: #111318;
+}
+
 html[data-theme="light"] .widget-description,
 html[data-theme="light"] .settings-value,
 html[data-theme="light"] .widget-badge {
     color: rgba(17, 19, 24, 0.6);
 }
 
+html[data-theme="light"] .project-category-count {
+    color: rgba(17, 19, 24, 0.68);
+    background: rgba(17, 19, 24, 0.08);
+    border-color: rgba(17, 19, 24, 0.12);
+}
+
 html[data-theme="light"] .widget-badge {
     background: rgba(17, 19, 24, 0.08);
+}
+
+html[data-theme="light"] .widget-thumb {
+    border-color: rgba(17, 19, 24, 0.14);
+    background: rgba(17, 19, 24, 0.06);
+}
+
+html[data-theme="light"] .widget-thumb-fallback {
+    color: rgba(17, 19, 24, 0.85);
+    background: linear-gradient(135deg, rgba(10, 132, 255, 0.22) 0%, rgba(52, 199, 89, 0.18) 100%);
 }
 
 html[data-theme="light"] .settings-row {

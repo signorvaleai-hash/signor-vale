@@ -4,6 +4,78 @@ function initThemeToggle() {
   }
 }
 
+function normalizeCategory(category) {
+  const value = String(category || "").trim();
+  return value || "Other";
+}
+
+function getProjectThumbnail(project) {
+  if (project.thumbnailUrl) {
+    return project.thumbnailUrl;
+  }
+
+  if (Array.isArray(project.gallery) && project.gallery.length > 0) {
+    return project.gallery[0];
+  }
+
+  return "";
+}
+
+function groupProjectsByCategory(projects) {
+  const groups = new Map();
+  for (const project of projects) {
+    const category = normalizeCategory(project.category);
+    if (!groups.has(category)) {
+      groups.set(category, []);
+    }
+    groups.get(category).push(project);
+  }
+  return [...groups.entries()];
+}
+
+function renderProjectCard(project) {
+  const iconTheme = ["invoice", "calendar", "notes"].includes(project.iconTheme)
+    ? project.iconTheme
+    : "invoice";
+  const detailHref = `/projects/${encodeURIComponent(project.slug)}`;
+  const thumbnailUrl = getProjectThumbnail(project);
+
+  const actionLinks = [
+    `<a class="widget-action" href="${detailHref}">Open</a>`,
+  ];
+
+  if (project.demoUrl) {
+    actionLinks.push(
+      `<a class="widget-action widget-action-ghost" href="${escapeAttribute(project.demoUrl)}" target="_blank" rel="noreferrer">Demo</a>`
+    );
+  } else if (project.downloadUrl) {
+    actionLinks.push(
+      `<a class="widget-action widget-action-ghost" href="${escapeAttribute(project.downloadUrl)}" target="_blank" rel="noreferrer">Download</a>`
+    );
+  }
+
+  const thumbnailMarkup = thumbnailUrl
+    ? `<img class="widget-thumb" src="${escapeAttribute(thumbnailUrl)}" alt="${escapeAttribute(project.title)} thumbnail" loading="lazy" />`
+    : `<div class="widget-thumb widget-thumb-fallback" aria-hidden="true">${escapeHtml(project.icon || "✦")}</div>`;
+
+  return `
+    <article class="widget widget-compact" data-project-url="${detailHref}" tabindex="0" role="link" aria-label="Open ${escapeAttribute(project.title)}">
+      <a class="widget-stretched-link" href="${detailHref}" aria-label="Open ${escapeAttribute(project.title)}"></a>
+      <div class="widget-head">
+        <div class="widget-icon ${iconTheme}">${escapeHtml(project.icon || "✦")}</div>
+        ${thumbnailMarkup}
+      </div>
+      <div class="widget-title">${escapeHtml(project.title)}</div>
+      <div class="widget-description">${escapeHtml(project.description)}</div>
+      <div class="widget-meta">
+        <span class="widget-badge">${escapeHtml(String(project.year))}</span>
+        <span class="widget-badge">${escapeHtml(project.projectType || "app")}</span>
+      </div>
+      <div class="widget-actions">${actionLinks.join("")}</div>
+    </article>
+  `;
+}
+
 function renderProjectCards(projects) {
   const grid = document.getElementById("projectsGrid");
   if (!grid) return;
@@ -13,43 +85,21 @@ function renderProjectCards(projects) {
     return;
   }
 
-  grid.innerHTML = projects
-    .map((project) => {
-      const widgetClass = project.featured ? "widget widget-large" : "widget";
-      const iconTheme = ["invoice", "calendar", "notes"].includes(project.iconTheme)
-        ? project.iconTheme
-        : "invoice";
-      const detailHref = `/projects/${encodeURIComponent(project.slug)}`;
-
-      const actionLinks = [];
-      actionLinks.push(`<a class="widget-action" href="${detailHref}">Open Project</a>`);
-
-      if (project.demoUrl) {
-        actionLinks.push(
-          `<a class="widget-action widget-action-ghost" href="${escapeAttribute(project.demoUrl)}" target="_blank" rel="noreferrer">Live Demo</a>`
-        );
-      }
-      if (project.downloadUrl) {
-        actionLinks.push(
-          `<a class="widget-action widget-action-ghost" href="${escapeAttribute(project.downloadUrl)}" target="_blank" rel="noreferrer">Download</a>`
-        );
-      }
-
-      return `
-        <article class="${widgetClass}" data-project-url="${detailHref}" tabindex="0" role="link" aria-label="Open ${escapeAttribute(project.title)}">
-          <a class="widget-stretched-link" href="${detailHref}" aria-label="Open ${escapeAttribute(project.title)}"></a>
-          <div class="widget-icon ${iconTheme}">${escapeHtml(project.icon || "✦")}</div>
-          <div class="widget-title">${escapeHtml(project.title)}</div>
-          <div class="widget-description">${escapeHtml(project.description)}</div>
-          <div class="widget-meta">
-            <span class="widget-badge">${escapeHtml(project.category)}</span>
-            <span class="widget-badge">${escapeHtml(String(project.year))}</span>
-            <span class="widget-badge">${escapeHtml(project.projectType || "app")}</span>
+  const groupedProjects = groupProjectsByCategory(projects);
+  grid.innerHTML = groupedProjects
+    .map(
+      ([category, categoryProjects]) => `
+        <section class="project-category" aria-label="${escapeAttribute(category)} projects">
+          <header class="project-category-header">
+            <h3 class="project-category-title">${escapeHtml(category)}</h3>
+            <span class="project-category-count">${categoryProjects.length}</span>
+          </header>
+          <div class="project-category-grid">
+            ${categoryProjects.map((project) => renderProjectCard(project)).join("")}
           </div>
-          <div class="widget-actions">${actionLinks.join("")}</div>
-        </article>
-      `;
-    })
+        </section>
+      `
+    )
     .join("");
 }
 
