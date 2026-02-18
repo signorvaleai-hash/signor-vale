@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="theme-color" content="#090b12" />
   <title>Trend Lab V2 | Signor Vale</title>
-  <link rel="stylesheet" href="/trend-lab-v2.css?v=20260218a" />
-  <script defer src="/trend-lab-v2.js?v=20260218a"></script>
+  <link rel="stylesheet" href="/trend-lab-v2.css?v=20260218b" />
+  <script defer src="/trend-lab-v2.js?v=20260218b"></script>
 </head>
 <body>
   <div class="bg" aria-hidden="true">
@@ -41,10 +41,31 @@
       </div>
     </section>
 
+    <section class="spotlight">
+      <div class="spotlight-head">
+        <h2>Spotlight</h2>
+        <p>High-signal projects with direct outcomes.</p>
+      </div>
+      <div id="spotlightGrid" class="spotlight-grid" aria-live="polite"></div>
+    </section>
+
     <section id="explorer" class="explorer">
       <div class="explorer-head">
-        <h2>Project Explorer</h2>
-        <p>Press <kbd>/</kbd> to jump to search.</p>
+        <div class="explorer-title-wrap">
+          <h2>Project Explorer</h2>
+          <p>Press <kbd>/</kbd> to jump to search.</p>
+        </div>
+        <div class="explorer-tools">
+          <p id="resultsSummary" class="results-summary">0 results</p>
+          <label class="sort-wrap" for="sortSelect">
+            Sort
+            <select id="sortSelect">
+              <option value="featured" selected>Featured</option>
+              <option value="newest">Newest</option>
+              <option value="az">A to Z</option>
+            </select>
+          </label>
+        </div>
       </div>
 
       <div class="controls">
